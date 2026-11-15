@@ -1,0 +1,93 @@
+scenarios:
+  - id: scenario_1
+    name: "Cenário 1 — Ana: Camisa de linho branca até R$300"
+    persona: u_ana
+    turns:
+      - conversation_key: c1
+        message: "Me acha uma camisa de linho branca até R$300"
+        checks:
+          - type: price_limit
+            max_price: 300.0
+          - type: single_garment_tryon
+          - type: tryon_shown
+          - type: price_grounding
+          - type: has_artifact
+            kinds: ["TRYON_CARD", "PRODUCT"]
+
+  - id: scenario_2
+    name: "Cenário 2 — Bruno: Casamento na praia sábado"
+    persona: u_bruno
+    turns:
+      - conversation_key: c2
+        message: "Tenho um casamento na praia sábado, o que eu visto?"
+        checks:
+          - type: gender_appropriateness
+            gender: MALE
+          - type: single_garment_tryon
+          - type: tryon_shown
+          - type: price_grounding
+          - type: has_artifact
+            kinds: ["TRYON_CARD", "PRODUCT"]
+
+  - id: scenario_3
+    name: "Cenário 3 — Carla: Opinião sobre o último look (VLM + Base64)"
+    persona: u_carla
+    turns:
+      - conversation_key: c3
+        message: "O que você acha do meu último look?"
+        checks:
+          - type: single_garment_tryon
+          - type: has_artifact
+            kinds: ["TRYON_CARD"]
+
+  - id: scenario_4
+    name: "Cenário 4 — Ana: Memória entre conversas (Odeio amarelo / M / Minimalista -> Jantar)"
+    persona: u_ana
+    turns:
+      - conversation_key: c4_a
+        message: "Odeio amarelo, visto M e curto estilo minimalista."
+        checks:
+          - type: no_tools_called
+      - conversation_key: c4_b
+        message: "Me sugere algo pra um jantar"
+        checks:
+          - type: forbidden_colors
+            terms: ["amarelo", "mostarda"]
+          - type: single_garment_tryon
+          - type: tryon_shown
+          - type: price_grounding
+          - type: has_artifact
+            kinds: ["TRYON_CARD", "PRODUCT"]
+
+  - id: scenario_5
+    name: "Cenário 5 — Ana: Jaqueta jeans inexistente -> Provar jaqueta de couro preta"
+    persona: u_ana
+    turns:
+      - conversation_key: c5_same
+        message: "Tem jaqueta jeans?"
+        checks:
+          - type: single_garment_tryon
+          - type: price_grounding
+          - type: has_artifact
+            kinds: ["PRODUCT"]
+      - conversation_key: c5_same
+        message: "Quero provar a jaqueta de couro preta"
+        checks:
+          - type: single_garment_tryon
+          - type: tryon_shown
+          - type: price_grounding
+          - type: has_artifact
+            kinds: ["TRYON_CARD", "PRODUCT"]
+
+  - id: scenario_6
+    name: "Cenário 6 — Bruno: Smalltalk e Off-topic (Zero tools)"
+    persona: u_bruno
+    turns:
+      - conversation_key: c6_a
+        message: "Oi"
+        checks:
+          - type: no_tools_called
+      - conversation_key: c6_b
+        message: "Qual a capital da França?"
+        checks:
+          - type: no_tools_called

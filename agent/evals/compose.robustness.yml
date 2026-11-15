@@ -1,0 +1,8 @@
+services:
+  proxy:
+    environment:
+      FAULTS_FILE: /evals/faults.json
+      CATALOG_OVERRIDES_FILE: /evals/overrides.json
+    volumes:
+      - ./agent/evals/faults.json:/evals/faults.json:ro
+      - ./agent/evals/overrides.json:/evals/overrides.json:ro
