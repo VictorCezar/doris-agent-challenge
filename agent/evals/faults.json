@@ -1,0 +1,35 @@
+{
+  "rules": [
+    {
+      "tool": "tryon",
+      "effect": {
+        "error": {
+          "status": 503,
+          "code": "upstream_timeout",
+          "retryable": true
+        }
+      },
+      "times": 1
+    },
+    {
+      "tool": "garment_creation",
+      "match": {
+        "search_item_id": "^p07$"
+      },
+      "effect": {
+        "error": {
+          "status": 500,
+          "code": "garment_processing_failed",
+          "retryable": false
+        }
+      },
+      "times": 5
+    },
+    {
+      "tool": "tryon",
+      "effect": {
+        "delay_ms": 8000
+      }
+    }
+  ]
+}

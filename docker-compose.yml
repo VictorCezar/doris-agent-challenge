@@ -16,6 +16,10 @@ services:
     env_file: .env
     environment:
       PROXY_URL: http://proxy:3000
+      DATA_DIR: /data
+    volumes:
+      - agent-data:/data
 
 volumes:
   proxy-data: {}
+  agent-data: {}
